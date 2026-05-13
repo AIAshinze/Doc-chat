@@ -1,31 +1,27 @@
 import json  # Import for JSON serialization
-from ibm_watsonx_ai.foundation_models import ModelInference
-from ibm_watsonx_ai import Credentials, APIClient
+from huggingface_hub import InferenceClient
 from typing import Dict, List
 from langchain.schema import Document
+from config.settings import settings
 
-credentials = Credentials(
-                   url = "https://us-south.ml.cloud.ibm.com",
-                  )
-client = APIClient(credentials)
 
 class VerificationAgent:
     def __init__(self):
         """
-        Initialize the verification agent with the IBM WatsonX ModelInference.
+        Initialize the verification agent with the HuggingFace InferenceClient.
+        Uses ibm-granite/granite-3.1-2b-instruct — a small, precise model suited
+        for structured verification tasks.
         """
-        # Initialize the WatsonX ModelInference
-        print("Initializing VerificationAgent with IBM WatsonX ModelInference...")
-        self.model = ModelInference(
-            model_id="ibm/granite-4-h-small", 
-            credentials=credentials,
-            project_id="skills-network",
-            params={
-                "max_tokens": 200,            # Adjust based on desired response length
-                "temperature": 0.0,           # Remove randomness for consistency
-            }
+        print("Initializing VerificationAgent with HuggingFace InferenceClient...")
+        self.client = InferenceClient(
+            model="ibm-granite/granite-3.1-2b-instruct",
+            token=settings.HUGGINGFACE_API_TOKEN,
         )
-        print("ModelInference initialized successfully.")
+        self.params = {
+            "max_tokens": 200,
+            "temperature": 0.0,
+        }
+        print("HuggingFace InferenceClient initialized successfully.")
 
     def sanitize_response(self, response_text: str) -> str:
         """
@@ -153,7 +149,7 @@ class VerificationAgent:
         # Call the LLM to generate the verification report
         try:
             print("Sending prompt to the model...")
-            response = self.model.chat(
+            response = self.client.chat_completion(
                 messages=[
                     {
                         "role": "user",
@@ -168,7 +164,7 @@ class VerificationAgent:
 
         # Extract and process the LLM's response
         try:
-            llm_response = response['choices'][0]['message']['content'].strip()
+            llm_response = response.choices[0].message.content.strip()
             print(f"Raw LLM response:\n{llm_response}")
         except (IndexError, KeyError) as e:
             print(f"Unexpected response structure: {e}")

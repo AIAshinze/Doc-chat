@@ -1,25 +1,25 @@
-from ibm_watsonx_ai.foundation_models import ModelInference
-from ibm_watsonx_ai import Credentials, APIClient
+from huggingface_hub import InferenceClient
 from config.settings import settings
 import re
 import logging
 
 logger = logging.getLogger(__name__)
 
-credentials = Credentials(
-                   url = "https://us-south.ml.cloud.ibm.com",
-                  )
-client = APIClient(credentials)
 
 class RelevanceChecker:
     def __init__(self):
-        # Initialize the WatsonX ModelInference
-        self.model = ModelInference(
-            model_id="ibm/granite-3-3-8b-instruct",
-            credentials=credentials,
-            project_id="skills-network",
-            params={"temperature": 0, "max_tokens": 10},
+        """
+        Initialize the relevance checker with the HuggingFace InferenceClient.
+        Uses ibm-granite/granite-3.3-8b-instruct for fast, precise classification.
+        """
+        self.client = InferenceClient(
+            model="ibm-granite/granite-3.3-8b-instruct",
+            token=settings.HUGGINGFACE_API_TOKEN,
         )
+        self.params = {
+            "temperature": 0.0,
+            "max_tokens": 10,
+        }
 
     def check(self, question: str, retriever, k=3) -> str:
         """
@@ -65,7 +65,7 @@ class RelevanceChecker:
 
         # Call the LLM
         try:
-            response = self.model.chat(
+            response = self.client.chat_completion(
                 messages=[
                     {
                         "role": "user",
@@ -79,9 +79,9 @@ class RelevanceChecker:
 
         # Extract the content from the response
         try:
-            llm_response = response['choices'][0]['message']['content'].strip().upper()
+            llm_response = response.choices[0].message.content.strip().upper()
             logger.debug(f"LLM response: {llm_response}")
-        except (IndexError, KeyError) as e:
+        except (IndexError, AttributeError  ) as e:
             logger.error(f"Unexpected response structure: {e}")
             return "NO_MATCH"
 
