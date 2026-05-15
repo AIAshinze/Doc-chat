@@ -189,7 +189,7 @@ HUGGINGFACE_API_TOKEN=hf_your_token_here
 
 Get a free token at: [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) — a **Read** token is sufficient.
 
-> **One-time step for Llama access:** Visit [meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) and click **"Agree and access repository"**. Approval is typically instant.
+> **One-time step for Llama access:** Visit [meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) and click **"Agree and access repository"**. Approval is typically instant OR change to any other model of your choice.
 
 ### **5️⃣ Run the Application**
 ```bash
