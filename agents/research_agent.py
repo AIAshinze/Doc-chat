@@ -1,6 +1,6 @@
 from huggingface_hub import InferenceClient
 from typing import Dict, List
-from langchain.schema import Document
+from langchain_core.documents import Document
 from config.settings import settings
 import json
 
@@ -13,10 +13,10 @@ class ResearchAgent:
         # Initialize the HuggingFace InferenceClient
         print("Initializing ResearchAgent with HuggingFace InferenceClient...")
         self.client = InferenceClient(
-            model="mistralai/Mistral-7B-Instruct-v0.3",
+            model="moonshotai/Kimi-K2.6:novita",
             token=settings.HUGGINGFACE_API_TOKEN
         )
-        self.param = {
+        self.params = {
             "max_tokens" : 300,            # Limit the response length to 300 tokens
             "temperature": 0.3             # Controls randomness; lower values make output more deterministic
         }

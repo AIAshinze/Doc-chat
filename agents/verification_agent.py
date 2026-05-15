@@ -1,7 +1,7 @@
 import json  # Import for JSON serialization
 from huggingface_hub import InferenceClient
 from typing import Dict, List
-from langchain.schema import Document
+from langchain_core.documents import Document
 from config.settings import settings
 
 
