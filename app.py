@@ -81,7 +81,7 @@ def main():
     }
     """
 
-    with gr.Blocks(theme=gr.themes.Glass(), title="DocChat 🐥", css=css, js=js) as demo:
+    with gr.Blocks(theme=gr.themes.Citrus(), title="DocChat 🐥", css=css, js=js) as demo:
         gr.Markdown("## DocChat: powered by Docling 🐥 and LangGraph", elem_classes="subtitle")
         gr.Markdown("# How it works ✨:", elem_classes="title")
         gr.Markdown("📤 Upload your document(s), enter your query then hit Submit 📝", elem_classes="text")

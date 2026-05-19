@@ -9,12 +9,10 @@ class VerificationAgent:
     def __init__(self):
         """
         Initialize the verification agent with the HuggingFace InferenceClient.
-        Uses ibm-granite/granite-3.1-2b-instruct — a small, precise model suited
-        for structured verification tasks.
         """
         print("Initializing VerificationAgent with HuggingFace InferenceClient...")
         self.client = InferenceClient(
-            model="ibm-granite/granite-3.1-2b-instruct",
+            model="deepseek-ai/DeepSeek-V4-Flash:fastest",
             token=settings.HUGGINGFACE_API_TOKEN,
         )
         self.params = {

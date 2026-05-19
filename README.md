@@ -77,9 +77,9 @@ The original project used IBM WatsonX's hosted API for all model inference, whic
 
 | Component | Old Model (WatsonX) | New Model (Hugging Face) | Notes |
 |---|---|---|---|
-| Research Agent | `meta-llama/llama-3-2-90b-vision-instruct` | `meta-llama/Llama-3.1-8B-Instruct` | Vision model was unnecessary for text-only RAG. 8B is faster and freely accessible. |
-| Relevance Checker | `ibm/granite-3-3-8b-instruct` | `ibm-granite/granite-3.3-8b-instruct` | Same model — IBM publishes it publicly on HF under the `ibm-granite` org. |
-| Verification Agent | `ibm/granite-4-h-small` | `ibm-granite/granite-3.1-2b-instruct` | Closest small Granite model available on HF. Suited for structured output tasks. |
+| Research Agent | `meta-llama/llama-3-2-90b-vision-instruct` | `moonshotai/Kimi-K2.6` | Vision model |
+| Relevance Checker | `ibm/granite-3-3-8b-instruct` | `Qwen/Qwen2.5-7B-Instruct` | small open-source model |
+| Verification Agent | `ibm/granite-4-h-small` | `deepseek-ai/DeepSeek-V4-Flash` | small Suited for structured output tasks. |
 | Embeddings | `ibm/slate-125m-english-rtrvr-v2` *(remote API)* | `sentence-transformers/all-MiniLM-L6-v2` *(local)* | Runs locally — no API quota used. ~90MB one-time download on first run. |
 
 ---

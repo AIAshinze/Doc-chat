@@ -10,10 +10,9 @@ class RelevanceChecker:
     def __init__(self):
         """
         Initialize the relevance checker with the HuggingFace InferenceClient.
-        Uses ibm-granite/granite-3.3-8b-instruct for fast, precise classification.
         """
         self.client = InferenceClient(
-            model="ibm-granite/granite-3.3-8b-instruct",
+            model="Qwen/Qwen2.5-7B-Instruct:fastest",
             token=settings.HUGGINGFACE_API_TOKEN,
         )
         self.params = {

@@ -13,7 +13,7 @@ class ResearchAgent:
         # Initialize the HuggingFace InferenceClient
         print("Initializing ResearchAgent with HuggingFace InferenceClient...")
         self.client = InferenceClient(
-            model="moonshotai/Kimi-K2.6:novita",
+            model="moonshotai/Kimi-K2.6:fastest",
             token=settings.HUGGINGFACE_API_TOKEN
         )
         self.params = {
